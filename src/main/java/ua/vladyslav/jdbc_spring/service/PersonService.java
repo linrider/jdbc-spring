@@ -19,9 +19,10 @@ public class PersonService {
         return jdbcTemplate.query("SELECT * FROM person", new BeanPropertyRowMapper<>(Person.class));
     }
 
+    @SuppressWarnings("deprecation")
     public Person getById(int id) {
         return jdbcTemplate
-                .query("SELECT * FROM person WHERE id = ?", new Object[] { id },
+                .query("SELECT * FROM person WHERE id=?", new Object[] {id},
                         new BeanPropertyRowMapper<>(Person.class))
                 .stream()
                 .findAny()
