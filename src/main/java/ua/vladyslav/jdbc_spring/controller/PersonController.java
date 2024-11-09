@@ -12,15 +12,14 @@ import ua.vladyslav.jdbc_spring.model.Person;
 import ua.vladyslav.jdbc_spring.service.PersonService;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Controller
-@RequestMapping("/api")
+@RequestMapping("/person")
 public class PersonController {
 
     private final PersonService personService;
-
-    public PersonController(PersonService personService) {
-        this.personService = personService;
-    }
 
     @GetMapping()
     public String savePerson(
@@ -48,7 +47,7 @@ public class PersonController {
         return "show-all";
     }
 
-    @GetMapping("/person/{id}")
+    @GetMapping("/{id}")
     public String getPersonById(@PathVariable("id") int id, Model model) {
         Person person = personService.getById(id);
         model.addAttribute("id", id);
@@ -60,7 +59,7 @@ public class PersonController {
     @GetMapping("/delete/{id}")
     public String deletePersonById(@PathVariable("id") int id) {
         personService.deleteById(id);
-        return "person-deleted";
+        return "redirect:/person/all";
     }
 
     @GetMapping("/update-page")
@@ -77,10 +76,9 @@ public class PersonController {
 
         Person person = new Person(id, name, age);
         personService.update(id, person);
-                model.addAttribute("id", id);
-                model.addAttribute("name", name);
-                model.addAttribute("age", age);
-        return "updated";
+        model.addAttribute("name", name);
+        model.addAttribute("age", age);
+        return "saved";
     }
 
 }
