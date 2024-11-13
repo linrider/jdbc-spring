@@ -1,18 +1,19 @@
 package ua.vladyslav.jdbc_spring.controller;
 
-import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import ua.vladyslav.jdbc_spring.model.Person;
 import ua.vladyslav.jdbc_spring.service.PersonService;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PostMapping;
+
 
 @RequiredArgsConstructor
 @Controller
@@ -22,63 +23,43 @@ public class PersonController {
     private final PersonService personService;
 
     @GetMapping()
-    public String savePerson(
-            @RequestParam("name") String name,
-            @RequestParam("age") int age,
-            Model model) {
-        model.addAttribute("name", name);
-        model.addAttribute("age", age);
-
-        Person person = new Person(0, name, age);
-
-        personService.save(person);
-        return "saved";
-    }
-
-    @GetMapping("/sign-up")
-    public String getSignUpPage() {
-        return "sign-up";
-    }
-
-    @GetMapping("/all")
-    public String getAllPersons(Model model) {
-        List<Person> persons = personService.getAll();
-        model.addAttribute("persons", persons);
-        return "show-all";
+    public String getAll(Model model) {
+        model.addAttribute("people", personService.getAll());
+        return "person/all";
     }
 
     @GetMapping("/{id}")
-    public String getPersonById(@PathVariable("id") int id, Model model) {
-        Person person = personService.getById(id);
-        model.addAttribute("id", id);
-        model.addAttribute("name", person.getName());
-        model.addAttribute("age", person.getAge());
-        return "person-info";
+    public String getPerson(@PathVariable("id") int id, Model model) {
+        model.addAttribute("person", personService.getById(id));
+        return "person/person";
+    }
+    
+    @GetMapping("/new")
+    public String newPersonPage(@ModelAttribute("person") Person person) {
+        return "person/new";
     }
 
-    @GetMapping("/delete/{id}")
-    public String deletePersonById(@PathVariable("id") int id) {
-        personService.deleteById(id);
-        return "redirect:/person/all";
+    @PostMapping()
+    public String save(@ModelAttribute("person") Person person) {
+        personService.save(person);
+        return "redirect:/person";
     }
-
-    @GetMapping("/update-page")
-    public String getUpdatePage() {
-        return "update-page";
+    
+    @GetMapping("/edit/{id}")
+    public String editPersonPage(@PathVariable("id") int id, Model model) {
+        model.addAttribute("person", personService.getById(id));
+        return "person/edit";
     }
-
-    @GetMapping("/update")
-    public String updatePerson(
-            @RequestParam("id") int id,
-            @RequestParam("name") String name,
-            @RequestParam("age") int age,
-            Model model) {
-
-        Person person = new Person(id, name, age);
+    
+    @PatchMapping("/{id}")
+    public String update(@PathVariable("id") int id, @ModelAttribute("person") Person person) {
         personService.update(id, person);
-        model.addAttribute("name", name);
-        model.addAttribute("age", age);
-        return "saved";
+        return "redirect:/person/" + id;
     }
 
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable("id") int id) {
+        personService.deleteById(id);
+        return "redirect:/person";
+    }
 }
