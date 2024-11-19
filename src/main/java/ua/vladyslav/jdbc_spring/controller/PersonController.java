@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import ua.vladyslav.jdbc_spring.model.Person;
-import ua.vladyslav.jdbc_spring.service.PersonService;
+import ua.vladyslav.jdbc_spring.service.impl.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 

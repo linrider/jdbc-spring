@@ -1,4 +1,4 @@
-package ua.vladyslav.jdbc_spring.service;
+package ua.vladyslav.jdbc_spring.service.impl;
 
 import java.util.List;
 
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import ua.vladyslav.jdbc_spring.model.Person;
+import ua.vladyslav.jdbc_spring.service.CrudService;
 
 @RequiredArgsConstructor
 @Service
