@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form th:method="POST" th:action="@{/car}" th:object="${car}">
+        <label for="producer">Producer:</label>
+        <input type="text" th:field="*{producer}" id="producer">
+        <br>
+        <label for="model">Model:</label>
+        <input type="text" th:field="*{model}" id="model">
+        <br>
+        <label for="manufactureYear">Manufacture year:</label>
+        <input type="text" th:field="*{manufactureYear}" id="manufactureYear">
+        <br>
+        <label for="origin">Origin:</label>
+        <input type="text" th:field="*{origin}" id="origin">
+        <br>
+        <input type="submit" value="Save">
+    </form>
+</body>
+
+</html>

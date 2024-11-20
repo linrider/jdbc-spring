@@ -33,21 +33,21 @@ public class CarService implements CrudService<Car, Integer> {
 
     @Override
     public void save(Car car) {
-        jdbcTemplate.update("INSERT INTO car (producer, model, manufactur_date, origin) " +
+        jdbcTemplate.update("INSERT INTO car (producer, model, manufacture_year, origin) " +
                 "VALUES (?, ?, ?, ?)",
                 car.getProducer(),
                 car.getModel(),
-                car.getManufacturDate(),
+                car.getManufactureYear(),
                 car.getOrigin());
     }
 
     @Override
     public void update(Integer id, Car car) {
-        jdbcTemplate.update("UPDATE person SET producer=?, model=?, manufactur_date=?, origin=? " +
+        jdbcTemplate.update("UPDATE car SET producer=?, model=?, manufacture_year=?, origin=? " +
                 "WHERE id=?",
                 car.getProducer(),
                 car.getModel(),
-                car.getManufacturDate(),
+                car.getManufactureYear(),
                 car.getOrigin(),
                 id);
     }

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p th:text="${'id: ' + car.getId()}"></p>
+    <p th:text="${'producer: ' + car.getProducer()}"></p>
+    <p th:text="${'model: ' + car.getModel()}"></p>
+    <p th:text="${'manufacture year: ' + car.getManufactureYear()}"></p>
+    <p th:text="${'origin: ' + car.getOrigin()}"></p>
+    <form th:action="@{/car/edit/{id} (id=${car.getId()})}">
+        <input type="submit" value="Edit car">
+    </form>
+    <form th:method="DELETE" th:action="@{/car/{id}(id=${car.getId()})}">
+        <input type="submit" value="Delete car">
+    </form>
+</body>
+
+</html>

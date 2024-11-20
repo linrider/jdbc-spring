@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <p th:text="${'id: ' + person.getId()}"></p>
     <p th:text="${'name: ' + person.getName()}"></p>
     <p th:text="${'age: ' + person.getAge()}"></p>
     <form th:action="@{/person/edit/{id}(id=${person.getId()})}">
         <input type="submit" value="Edit person">
-    </form> 
+    </form>
     <form th:method="DELETE" th:action="@{/person/{id}(id=${person.getId()})}">
         <input type="submit" value="Delete person">
     </form>
 
 </body>
+
 </html>

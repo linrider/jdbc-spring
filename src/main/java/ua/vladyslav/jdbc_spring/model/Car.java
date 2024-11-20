@@ -1,7 +1,5 @@
 package ua.vladyslav.jdbc_spring.model;
 
-import java.time.LocalDate;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,6 +14,6 @@ public class Car {
     Integer id;
     String producer;
     String model;
-    LocalDate manufacturDate;
+    int manufactureYear;
     String origin;
 }
