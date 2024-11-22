@@ -8,7 +8,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
-import ua.vladyslav.jdbc_spring.model.Car;
 import ua.vladyslav.jdbc_spring.model.User;
 import ua.vladyslav.jdbc_spring.service.CrudService;
 
@@ -19,48 +18,52 @@ public class UserService implements CrudService<User, Integer> {
 
     @Override
     public List<User> getAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAll'");
+        return jdbcTemplate.query("SELECT * FROM users", new BeanPropertyRowMapper<>(User.class));
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public User getById(Integer id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getById'");
+        return jdbcTemplate
+                .query("SELECT * FROM users WHERE id=?", new Object[] { id },
+                        new BeanPropertyRowMapper<>(User.class))
+                .stream()
+                .findAny()
+                .orElseThrow();
     }
 
     @Override
-    public void save(User t) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+    public void save(User user) {
+        jdbcTemplate.update("INSERT INTO users (name, username, age, email, address) VALUES (?, ?, ?, ?, ?)",
+                user.getName(), user.getUsername(), user.getAge(), user.getEmail(), user.getAddress());
     }
 
     @Override
-    public void update(Integer id, User t) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    public void update(Integer id, User user) {
+        jdbcTemplate.update("UPDATE users SET name=?, username=?, age=?, email=?, address=? WHERE id=?",
+                user.getName(), user.getUsername(), user.getAge(), user.getEmail(), user.getAddress(), id);
     }
 
     @Override
     public void deleteById(Integer id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
+        jdbcTemplate.update("DELETE FROM users WHERE id=?", id);
     }
 
     @SuppressWarnings("deprecation")
     public Optional<User> findByUsername(String username) {
-        return jdbcTemplate.query("SELECT * FROM usr WHERE username=?", new Object[] { username },
+        return jdbcTemplate.query("SELECT * FROM users WHERE username=?", new Object[] { username },
                 new BeanPropertyRowMapper<>(User.class))
                 .stream()
                 .findAny();
 
-    }@SuppressWarnings("deprecation")
+    }
+
+    @SuppressWarnings("deprecation")
     public Optional<User> findByEmail(String email) {
-        return jdbcTemplate.query("SELECT * FROM usr WHERE username=?", new Object[] { email },
+        return jdbcTemplate.query("SELECT * FROM users WHERE username=?", new Object[] { email },
                 new BeanPropertyRowMapper<>(User.class))
                 .stream()
                 .findAny();
-
     }
 
 }

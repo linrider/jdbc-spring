@@ -16,7 +16,9 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
+    
     int id;
+
     @NotBlank(message = "The name couldn't be empty")
     @Size(min = 3, max = 30, message = "The name length should be from 3 to 30")
     String name;
