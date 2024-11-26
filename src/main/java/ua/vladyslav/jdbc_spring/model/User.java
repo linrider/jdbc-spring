@@ -36,7 +36,7 @@ public class User {
     String email;
 
     @NotBlank(message = "The address couldn't be empty")
-    @Pattern(regexp = "[A-Z]\\w+, [A-Z]\\w+, \\d{5}", message = "Address should be in format \"Urraine, Chernihiv, 14001\"")
+    @Pattern(regexp = "[A-Z]\\w+, [A-Z]\\w+, \\d{5}", message = "Address should be in format \"Ukraine, Chernihiv, 14001\"")
     String address; 
 
 }

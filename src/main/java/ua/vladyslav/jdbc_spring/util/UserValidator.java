@@ -14,11 +14,13 @@ public class UserValidator implements Validator{
     private final UserService userService;
 
 
+    @SuppressWarnings("null")
     @Override
     public boolean supports(Class<?> clazz) {
         return User.class.equals(clazz);
     }
 
+    @SuppressWarnings("null")
     @Override
     public void validate(Object target, Errors errors) {
 

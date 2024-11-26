@@ -10,7 +10,7 @@
 <body>
     <p th:text="${'id: ' + user.getId()}"></p>
     <p th:text="${'name: ' + user.getName()}"></p>
-    <p th:text="${'username: ' + user.getUsrname()}"></p>
+    <p th:text="${'username: ' + user.getUsername()}"></p>
     <p th:text="${'age: ' + user.getAge()}"></p>
     <p th:text="${'email: ' + user.getEmail}"></p>
     <p th:text="${'address: ' + user.getAddress}"></p>
@@ -19,6 +19,9 @@
     </form>
     <form th:method="DELETE" th:action="@{/user/{id}(id=${user.getId()})}">
         <input type="submit" value="Delete user">
+    </form>
+    <form action="/user">
+        <input type="submit" value="Show all users">
     </form>
 </body>
 
