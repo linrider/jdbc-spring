@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -32,7 +33,7 @@ public class User {
     int age;
 
     @NotBlank(message = "The email couldn't be empty")
-    @Size(min = 3, max = 50, message = "The email length should be from 3 to 30")
+    @Email(message = "Email should look like example@example.com")
     String email;
 
     @NotBlank(message = "The address couldn't be empty")
