@@ -10,9 +10,8 @@ import ua.vladyslav.jdbc_spring.service.impl.UserService;
 
 @Component
 @RequiredArgsConstructor
-public class UserValidator implements Validator{
+public class UserValidator implements Validator {
     private final UserService userService;
-
 
     @SuppressWarnings("null")
     @Override
@@ -25,14 +24,19 @@ public class UserValidator implements Validator{
     public void validate(Object target, Errors errors) {
 
         User user = (User) target;
-        
-        if (userService.findByEmail(user.getEmail()).isPresent()) {
-            errors.rejectValue("email", "", "This email is already used");
+
+        if (user.getId() != 0) {
+            User previousVersion = userService.getById(user.getId());
+            if (!previousVersion.getEmail().equals(user.getEmail())
+                    && userService.findByEmail(user.getEmail()).isPresent()) {
+                errors.rejectValue("email", "", "This email is already used");
+            }
+            if (userService.findByUsername(user.getUsername()).isPresent()
+                    && !previousVersion.getUsername().equals(user.getUsername())) {
+                errors.rejectValue("username", "", "This username is already used");
+            }
         }
 
-        if (userService.findByUsername(user.getUsername()).isPresent()) {
-            errors.rejectValue("username", "", "This username is already used");
-        }
     }
 
 }

@@ -26,10 +26,10 @@ public class UserController {
     private final UserService userService;
     private final UserValidator userValidator;
 
-    @InitBinder
-    protected void initBinder(WebDataBinder binder) {
-        binder.addValidators(userValidator);
-    }
+    // @InitBinder
+    // protected void initBinder(WebDataBinder binder) {
+    // binder.addValidators(userValidator);
+    // }
 
     @GetMapping()
     public String getAll(Model model) {
@@ -51,6 +51,7 @@ public class UserController {
     @PostMapping()
     public String save(@ModelAttribute("user") @Valid User user,
             BindingResult bindingResult) {
+        userValidator.validate(user, bindingResult);
         if (bindingResult.hasErrors()) {
             return "user/new";
         }
@@ -68,6 +69,7 @@ public class UserController {
     public String update(@PathVariable("id") int id,
             @ModelAttribute("user") @Valid User user,
             BindingResult bindingResult) {
+        userValidator.validate(user, bindingResult);
         if (bindingResult.hasErrors()) {
             return "user/edit";
         }
