@@ -3,10 +3,8 @@ package ua.vladyslav.jdbc_spring.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,11 +24,6 @@ public class UserController {
     private final UserService userService;
     private final UserValidator userValidator;
 
-    // @InitBinder
-    // protected void initBinder(WebDataBinder binder) {
-    // binder.addValidators(userValidator);
-    // }
-
     @GetMapping()
     public String getAll(Model model) {
         model.addAttribute("users", userService.getAll());
@@ -45,7 +38,7 @@ public class UserController {
 
     @GetMapping("/new")
     public String newUserPage(@ModelAttribute("user") User user) {
-        return ("user/new");
+        return "user/new";
     }
 
     @PostMapping()

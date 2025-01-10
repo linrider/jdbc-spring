@@ -12,7 +12,7 @@
     <p th:text="${'name: ' + user.getName()}"></p>
     <p th:text="${'username: ' + user.getUsername()}"></p>
     <p th:text="${'age: ' + user.getAge()}"></p>
-    <p th:text="${'email: ' + user.getEmail}"></p>
+    <p th:text="${'email: ' + user.getEmail()}"></p>
     <p th:text="${'address: ' + user.getAddress}"></p>
     <form th:action="@{/user/edit/{id}(id=${user.getId()})}">
         <input type="submit" value="Edit user">
